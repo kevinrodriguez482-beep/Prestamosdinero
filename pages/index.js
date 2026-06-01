@@ -23,8 +23,41 @@ export default function Home() {
   const [pagosModal, setPagosModal] = useState(null);
   const [analyticsOpen, setAnalyticsOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [backupMsg, setBackupMsg] = useState('');
 
   useEffect(() => { setData(loadData()); setMounted(true); }, []);
+
+  function handleBackup() {
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const fecha = new Date().toISOString().split('T')[0];
+    a.href = url; a.download = `prestamos-backup-${fecha}.json`;
+    a.click(); URL.revokeObjectURL(url);
+    setBackupMsg('✓ Descargado');
+    setTimeout(() => setBackupMsg(''), 2500);
+  }
+
+  function handleRestore(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (!parsed.prestamos || !Array.isArray(parsed.prestamos)) throw new Error('Formato inválido');
+        persist(parsed);
+        setBackupMsg(`✓ ${parsed.prestamos.length} préstamos restaurados`);
+        setTimeout(() => setBackupMsg(''), 3000);
+      } catch {
+        setBackupMsg('✗ Archivo inválido');
+        setTimeout(() => setBackupMsg(''), 3000);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  }
 
   function persist(newData) { setData(newData); saveData(newData); }
 
@@ -171,6 +204,25 @@ export default function Home() {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                   {exporting ? 'Generando...' : 'PDF'}
                 </button>
+
+                {/* Backup / Restore group */}
+                <div className={styles.backupGroup}>
+                  <button className={styles.btnSecondary} onClick={handleBackup} disabled={prestamos.length === 0} title="Descargar copia de seguridad JSON">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Backup
+                  </button>
+                  <label className={styles.btnSecondary} title="Restaurar desde archivo JSON" style={{ cursor: 'pointer' }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Restaurar
+                    <input type="file" accept=".json" onChange={handleRestore} style={{ display: 'none' }} />
+                  </label>
+                  {backupMsg && (
+                    <span className={`${styles.backupMsg} ${backupMsg.startsWith('✗') ? styles.backupMsgError : ''}`}>
+                      {backupMsg}
+                    </span>
+                  )}
+                </div>
+
                 <button className={styles.btnNew} onClick={() => setModal('nuevo')}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                   Nuevo préstamo

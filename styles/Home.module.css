@@ -66,6 +66,21 @@
 .btnSecondary:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 .btnSecondary:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.backupGroup {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 8px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.backupMsg {
+  font-size: 12px; color: var(--accent);
+  white-space: nowrap;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.backupMsgError { color: var(--red); }
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
