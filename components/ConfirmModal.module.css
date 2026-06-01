@@ -1,0 +1,40 @@
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1100; padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--bg2);
+  border: 1px solid rgba(224,85,85,0.3);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%; max-width: 360px;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  animation: scaleIn 0.2s ease;
+}
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.icon { font-size: 32px; margin-bottom: 16px; }
+.title { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 10px; }
+.message { font-size: 14px; color: var(--text3); line-height: 1.5; margin-bottom: 28px; }
+.actions { display: flex; gap: 10px; }
+.btnCancel {
+  flex: 1; padding: 10px;
+  border-radius: 8px; border: 1px solid var(--border2);
+  background: transparent; color: var(--text3);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer;
+  transition: all 0.15s;
+}
+.btnCancel:hover { background: var(--border); color: var(--text); }
+.btnDanger {
+  flex: 1; padding: 10px;
+  border-radius: 8px; border: none;
+  background: var(--red); color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: all 0.15s;
+}
+.btnDanger:hover { filter: brightness(1.15); }

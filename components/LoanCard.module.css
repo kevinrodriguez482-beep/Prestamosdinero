@@ -1,0 +1,184 @@
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  animation: fadeUp 0.4s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-1px);
+}
+.cardPagado { opacity: 0.55; }
+.cardVencido { border-left: 3px solid var(--red); }
+.cardUrgente { border-left: 3px solid var(--gold); }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.left { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+.nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+.activo { background: var(--accent-dim); color: var(--accent); }
+.pagado { background: var(--blue-dim); color: var(--blue); }
+.vencido { background: var(--red-dim); color: var(--red); }
+.urgente { background: var(--gold-dim); color: var(--gold); }
+
+.monto { text-align: right; }
+.montoLabel { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+.montoValue {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--text);
+  font-weight: 600;
+}
+.montoSub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.badges { display: flex; gap: 5px; flex-wrap: wrap; }
+.badgeCuota { background: rgba(102,153,204,0.1); color: var(--blue); border: 1px solid rgba(102,153,204,0.2); }
+
+.quickContact {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text3);
+  padding: 6px 10px; background: var(--bg3);
+  border-radius: 6px; margin-bottom: 2px;
+}
+.contactLink { color: var(--accent); text-decoration: none; font-size: 13px; }
+.contactLink:hover { text-decoration: underline; }
+
+.expandBtn {
+  display: flex; align-items: center; gap: 5px;
+  background: transparent; border: none;
+  color: var(--text3); font-size: 12px; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; padding: 4px 0; transition: color 0.15s;
+  margin-bottom: 2px;
+}
+.expandBtn:hover { color: var(--text2); }
+
+.expandedBody {
+  border-top: 1px solid var(--border);
+  padding-top: 12px; margin-top: 4px;
+  display: flex; flex-direction: column; gap: 14px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+.detailGroup { display: flex; flex-direction: column; gap: 2px; }
+.detailGroupTitle {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 6px; font-weight: 600;
+}
+
+.progressWrap {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.progressBar {
+  flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden;
+}
+.progressFill {
+  height: 100%; background: linear-gradient(90deg, var(--accent), #7af0b0);
+  border-radius: 2px; transition: width 0.4s ease;
+}
+.progressPct { font-size: 11px; color: var(--accent); min-width: 28px; text-align: right; }
+
+.dates {
+  display: flex;
+  gap: 24px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.date { display: flex; flex-direction: column; gap: 2px; }
+.dateLabel { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); }
+.dateVal { font-size: 13px; color: var(--text2); }
+.redText { color: var(--red) !important; }
+.amberText { color: var(--gold) !important; }
+
+.notas {
+  font-size: 13px;
+  color: var(--text3);
+  font-style: italic;
+  margin-bottom: 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border2);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: 500;
+}
+.btn:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btnActive {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.iconBtns { display: flex; gap: 6px; }
+.iconBtn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.iconBtn:hover {
+  background: var(--border);
+  color: var(--text);
+  border-color: var(--border2);
+}
+.iconBtnDanger:hover {
+  background: var(--red-dim);
+  border-color: var(--red);
+  color: var(--red);
+}
